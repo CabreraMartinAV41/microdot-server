@@ -3,22 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad #</title>
+    <title>Actividad #1</title>
     <link rel="stylesheet" href="styles/base.css">
+    <style>
+        /* Estilo para los textos y el botón */
+        #texts {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            position: relative;
+        }
+
+        .text {
+            position: absolute;
+            font-size: 20px;
+            color: #000;
+        }
+
+        #centerText {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+            color: #fff;
+            display: none;
+            font-weight: bold;
+            text-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 15px #f00, 0 0 20px #f00, 0 0 25px #f00, 0 0 30px #f00, 0 0 35px #f00;
+        }
+
+        #button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Actividad #</h1>
+        <h1>Actividad #1</h1>
     </header>
     <main>
+        <div id="texts">
+            <div class="text" id="text1">Cabrera</div>
+            <div class="text" id="text2">Donatti</div>
+            <div class="text" id="text3">Sofía</div>
+            <div class="text" id="text4">Ferrante</div>
+        </div>
+        <button id="button">Tócame</button>
+        <div id="centerText">Fabri te amamos</div>
     </main>
     <footer>
         <p>Representación Frontal y Visual de Datos</p>
         <p>Computadoras de Aeronaves</p>
-        <p>Alumno XX</p>
+        <p>Alumno Cabrera Martín Alejandro</p>
         <p>Prof. Carlassara Fabrizio</p>
         <p id="fecha"></p>
     </footer>
     <script src="scripts/base.js"></script>
+    <script>
+        // JavaScript para manejar el cambio de posiciones y el mensaje final
+        const button = document.getElementById('button');
+        const texts = document.querySelectorAll('.text');
+        const centerText = document.getElementById('centerText');
+
+        let clickCount = 0;
+
+        button.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 4) {
+                // Mostrar el mensaje final
+                document.getElementById('texts').style.display = 'none';
+                centerText.style.display = 'block';
+                clickCount = 0; // Reiniciar el contador
+            } else {
+                // Cambiar la posición de los textos
+                let positions = [...texts].map(text => {
+                    return {
+                        element: text,
+                        top: text.style.top || '0px',
+                        left: text.style.left || '0px'
+                    };
+                });
+
+                positions.forEach(pos => {
+                    pos.element.style.top = Math.random() * 250 + 'px';
+                    pos.element.style.left = Math.random() * 250 + 'px';
+                });
+            }
+        });
+    </script>
 </body>
 </html>

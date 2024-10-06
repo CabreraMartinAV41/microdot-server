@@ -1,36 +1,78 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #E0E0E0;
     margin: 0;
     padding: 0;
-    background-color: #f0f8ff;
-    color: #000080;
 }
 
-header {
-    background-color: #176fc7;
-    padding: 20px 0;
+.header {
+    background-color: #1E1E1E;
+    padding: 20px;
     text-align: center;
+    border-bottom: 2px solid #2E7D32;
 }
 
-header h1 {
-    margin: 0;
+h1, h2 {
+    color: #76FF03;
+}
+
+.main {
+    padding: 20px;
+}
+
+.control-section, .color-section {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #2E7D32;
+    border-radius: 8px;
+    background-color: #1E1E1E;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.led-button {
+    background-color: #4CAF50;
     color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-main {
-    min-height: 70vh;
+.led-button:hover {
+    background-color: #45A049;
 }
 
-footer {
-    background-color: #176fc7;
-    color: white;
+input[type="color"] {
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.footer {
+    background-color: #1E1E1E;
     text-align: center;
-    padding: 10px 0;
-    position: fixed;
+    padding: 10px;
+    border-top: 2px solid #2E7D32;
+    position: relative;
     bottom: 0;
     width: 100%;
 }
 
-footer p {
-    margin: 5px 0;
+
+/* Estilo del pie de página */
+.footer {
+    background-color: #1E1E1E; /* Fondo del pie */
+    text-align: center;
+    padding: 10px;
+    border-top: 2px solid #2E7D32; /* Línea verde en la parte superior */
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
+

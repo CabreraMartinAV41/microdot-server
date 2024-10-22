@@ -3,58 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad 2</title>
+    <title>Control de LEDs</title>
     <link rel="stylesheet" href="styles/base.css">
 </head>
 <body>
     <header>
-        <h1>Actividad 2</h1>
+        <h1>Control Inteligente de LEDs</h1>
     </header>
+
     <main>
-        <section>
+        <section class="control-panel">
             <h2>Control de LEDs</h2>
-            <button onclick="toggleLED(1)">LED 1</button>
-            <button onclick="toggleLED(2)">LED 2</button>
-            <button onclick="toggleLED(3)">LED 3</button>
+            <div class="led-buttons">
+                <button onclick="toggleLED(1)">LED 1</button>
+                <button onclick="toggleLED(2)">LED 2</button>
+                <button onclick="toggleLED(3)">LED 3</button>
+            </div>
         </section>
-        <section>
-            <h2>Control de color de la tira LED</h2>
-            <input type="color" id="colorPicker" onchange="setStripColor(this.value)">
+
+        <section class="color-control">
+            <h2>Control de Color de la Tira LED</h2>
+            <div class="sliders">
+                <div class="slider-container">
+                    <label for="redRange">Rojo</label>
+                    <input type="range" id="redRange" min="0" max="255" value="0" orient="vertical" 
+                           onchange="updateStripColor()">
+                </div>
+                <div class="slider-container">
+                    <label for="greenRange">Verde</label>
+                    <input type="range" id="greenRange" min="0" max="255" value="0" orient="vertical" 
+                           onchange="updateStripColor()">
+                </div>
+                <div class="slider-container">
+                    <label for="blueRange">Azul</label>
+                    <input type="range" id="blueRange" min="0" max="255" value="0" orient="vertical" 
+                           onchange="updateStripColor()">
+                </div>
+            </div>
         </section>
     </main>
+
     <footer>
-        <p>Representación Frontal y Visual de Datos</p>
-        <p>Computadoras de Aeronaves</p>
-        <p>Alumno Cabrera Martín</p>
-        <p>Prof. Carlassara Fabrizio</p>
+        <p>Representación Frontal y Visual de Datos - Computadoras de Aeronaves</p>
+        <p>Alumno: Cabrera Martín - Prof. Carlassara Fabrizio</p>
         <p id="fecha"></p>
     </footer>
+
     <script src="scripts/base.js"></script>
     <script>
         let ledStates = [false, false, false];
 
         function toggleLED(ledNum) {
-            ledStates[ledNum-1] = !ledStates[ledNum-1];
-            fetch(`/led?led=${ledNum}&state=${ledStates[ledNum-1]}`)
+            ledStates[ledNum - 1] = !ledStates[ledNum - 1];
+            fetch(`/led?led=${ledNum}&state=${ledStates[ledNum - 1]}`)
                 .then(response => response.text())
                 .then(data => console.log(data));
         }
 
-        function setStripColor(color) {
-            const rgb = hexToRgb(color);
-            fetch(`/color?r=${rgb.r}&g=${rgb.g}&b=${rgb.b}`)
+        function updateStripColor() {
+            const r = document.getElementById('redRange').value;
+            const g = document.getElementById('greenRange').value;
+            const b = document.getElementById('blueRange').value;
+
+            fetch(`/color?r=${r}&g=${g}&b=${b}`)
                 .then(response => response.text())
                 .then(data => console.log(data));
         }
 
-        function hexToRgb(hex) {
-            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-            return result ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16)
-            } : null;
-        }
+        document.getElementById("fecha").textContent = new Date().toLocaleDateString("es-ES", {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
     </script>
 </body>
 </html>
